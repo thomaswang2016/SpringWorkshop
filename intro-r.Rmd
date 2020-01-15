@@ -71,6 +71,11 @@ Next, you need to load the packages in your working environment. We do this with
 the `library` function. Note that you only need to **install** packages once, but
 you need to **load** them each time you relaunch RStudio.
 
+```{r first-code-chunk}
+4+12
+```
+
+
 ```{r load-packages, message = FALSE}
 library(dplyr)
 library(ggplot2)
@@ -177,7 +182,11 @@ the object in your workspace. You can see the names of these columns (or
 variables) by typing:
 
 ```{r names-data}
-names(diamonds)
+View(diamonds)
+```
+
+```{r-help-diamonds}
+?diamonds
 ```
 
 <div class="question">
@@ -268,7 +277,7 @@ R has some powerful functions for making graphics. We can create a simple plot
 of the price of diamonds by their weight measured in carats with the command
 
 ```{r plot-price-vs-carat}
-ggplot(data = diamonds, aes(x = carat, y = price)) +
+ggplot(data = diamonds, aes(x = carat, y = price, color=clarity)) +
   geom_point()
 ```
 
@@ -402,7 +411,9 @@ Now, with your partner, play with mutate and piping and create a plot of interes
 
 ```{r plot-of-something-interesting}
 # type your code for the Exercise here, and Knit
-
+ggplot(data = diamonds, aes(x =total , y = price, color=color)) +
+  geom_line() +
+  geom_point()
 
 
 ```
@@ -444,7 +455,8 @@ Let's get the means of the stone prices.
 
 ```{r try-averaging-diamond-prices}
 diamonds %>%
-  summarise(mean = mean(price), sd = sd(price), median = median(price))
+  group_by(color) %>%
+  summarise(mean = mean(price), sd = sd(price), median = median(price), count =n())
 ```
 
 ## Resources for learning R and working in RStudio
@@ -480,7 +492,7 @@ If you run into problems with your RStudio work, start by inspecting the console
 
 If you need help with a problem in your labs, please ask your TA or your classmates.  Don't be the person who posts a question to a website like Stack Overflow for which the answers can be readily found on the internet via a simple search. Those kinds of questions will be ignored or will result in heaps of abuse. Some sites are more beginner-friendly than others.  Your TAs will have some suggestions for you.  
 
-Whatever you do, please don't post your assigned questions onto paid answer-sharing services. That's a violation of the Community Standard as well as a very poor way to learn to use R.  
+Whatever you do, please don't post your assigned questions onto paid answer-sharing services. That's a violation of the Communitydi Standard as well as a very poor way to learn to use R.  
 
 Acknowledgements:
 This is derived from an Open INtro 
